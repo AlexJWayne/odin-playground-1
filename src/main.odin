@@ -10,7 +10,7 @@ game: Game
 main :: proc() {
 	rl.InitWindow(1024, 1024, "Odin Playground")
 	defer rl.CloseWindow()
-	rl.SetTargetFPS(120)
+	// rl.SetTargetFPS(120)
 
 	game = game_init()
 
@@ -26,7 +26,7 @@ render :: proc() {
 	rl.ClearBackground(rl.DARKGRAY)
 	defer rl.EndDrawing()
 
-	// fmt.printfln("%1.f ms", rl.GetFrameTime() * 1000)
+	fmt.printfln("%1.f fps", 1 / rl.GetFrameTime())
 
 	game_render(&game)
 }
