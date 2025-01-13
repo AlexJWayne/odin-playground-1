@@ -74,12 +74,12 @@ particle_spawn :: proc(system: ^ParticleSystem, qty: int) {
 particles_render :: proc(system: ^ParticleSystem) {
 	for particle in system.particles {
 		if !particle.alive {continue}
-		youth := cast(u8)((cast(f32)particle.age / particle.lifetime) * 0xFF)
+		youth := 1 - (particle.age / particle.lifetime)
 
 		rl.DrawRectangleV(
 			particle.pos, //
 			rl.Vector2{6, 6},
-			rl.Color{0xFF, 0xFF, 0xFF, youth * 0xFF},
+			rl.Color{0xFF, 0xFF, 0xFF, cast(u8)(youth * 0xFF)},
 		)
 	}
 }

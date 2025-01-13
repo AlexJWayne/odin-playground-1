@@ -8,9 +8,10 @@ import rl "vendor:raylib"
 game: Game
 
 main :: proc() {
+	rl.SetConfigFlags({.WINDOW_RESIZABLE, .VSYNC_HINT})
 	rl.InitWindow(1024, 1024, "Odin Playground")
+	rl.SetTargetFPS(500)
 	defer rl.CloseWindow()
-	// rl.SetTargetFPS(120)
 
 	game = game_init()
 
@@ -26,7 +27,13 @@ render :: proc() {
 	rl.ClearBackground(rl.DARKGRAY)
 	defer rl.EndDrawing()
 
-	fmt.printfln("%1.f fps", 1 / rl.GetFrameTime())
-
 	game_render(&game)
+
+	draw_fps()
+}
+
+draw_fps :: proc() {
+	fps := 1 / rl.GetFrameTime()
+	fps_cstring := fmt.ctprintf("FPS: %1.f", fps)
+	rl.DrawText(fps_cstring, 5, 5, 20, rl.WHITE)
 }
